@@ -8,7 +8,7 @@
         body { font-family: Arial, sans-serif; text-align: center; }
         #crucigrama-container { display: flex; justify-content: center; margin-top: 20px; }
         .grid { display: grid; grid-template-columns: repeat(15, 40px); gap: 2px; }
-        .cell { width: 40px; height: 40px; text-align: center; font-size: 20px; border: 1px solid black; text-transform: uppercase; position: relative; }
+        .cell { width: 40px; height: 40px; text-align: center; font-size: 20px; border: 1px solid black; text-transform: uppercase; position: relative; background-color: white; }
         .cell:focus { background-color: #ffff99; outline: none; }
         .black { background-color: black; }
         .incorrect { background: repeating-linear-gradient(45deg, red, red 5px, transparent 5px, transparent 10px); }
@@ -50,38 +50,19 @@
             clearInterval(timerInterval);
         }
         
-        const words = [
-            {word: "TIRON", position: 0, direction: "horizontal"},
-            {word: "NOE", position: 30, direction: "vertical"},
-            {word: "IRA", position: 9, direction: "horizontal"},
-            {word: "VANDALOS", position: 20, direction: "horizontal"},
-            {word: "HAMACA", position: 40, direction: "horizontal"},
-            {word: "TETA", position: 60, direction: "horizontal"},
-            {word: "SOL", position: 80, direction: "vertical"},
-            {word: "CIELO", position: 100, direction: "horizontal"},
-            {word: "LUNA", position: 120, direction: "horizontal"},
-            {word: "ESTRELLA", position: 140, direction: "horizontal"},
-            {word: "MAR", position: 160, direction: "vertical"},
-            {word: "AGUA", position: 180, direction: "horizontal"},
-            {word: "RIO", position: 200, direction: "horizontal"},
-            {word: "NUBE", position: 220, direction: "vertical"},
-            {word: "VIENTO", position: 240, direction: "horizontal"},
-            {word: "MONTAÑA", position: 260, direction: "horizontal"},
-            {word: "VALLE", position: 280, direction: "horizontal"},
-            {word: "LAGO", position: 300, direction: "vertical"},
-            {word: "BOSQUE", position: 320, direction: "horizontal"},
-            {word: "FLOR", position: 340, direction: "horizontal"},
-            {word: "ARBOL", position: 360, direction: "horizontal"},
-            {word: "TRONCO", position: 380, direction: "vertical"},
-            {word: "HOJA", position: 400, direction: "horizontal"},
-            {word: "RAIZ", position: 420, direction: "vertical"},
-            {word: "NATURALEZA", position: 440, direction: "horizontal"},
-            {word: "TIERRA", position: 460, direction: "horizontal"},
-            {word: "FUEGO", position: 480, direction: "horizontal"}
-        ];
+        function generateGrid() {
+            const grid = document.getElementById('crucigrama');
+            grid.innerHTML = '';
+            for (let i = 0; i < 225; i++) {
+                let cell = document.createElement('input');
+                cell.classList.add('cell');
+                cell.maxLength = 1;
+                grid.appendChild(cell);
+            }
+        }
         
         document.addEventListener("DOMContentLoaded", function() {
-            generateCrossword();
+            generateGrid();
             startTimer();
         });
     </script>
