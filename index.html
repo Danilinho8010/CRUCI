@@ -7,7 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #crucigrama-container { display: flex; justify-content: center; margin-top: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(10, 40px); gap: 2px; }
+        .grid { display: grid; grid-template-columns: repeat(15, 40px); gap: 2px; }
         .cell { width: 40px; height: 40px; text-align: center; font-size: 20px; border: 1px solid black; text-transform: uppercase; position: relative; }
         .cell:focus { background-color: #ffff99; outline: none; }
         .black { background-color: black; }
@@ -52,32 +52,32 @@
         
         const words = [
             {word: "TIRON", position: 0, direction: "horizontal"},
-            {word: "NOE", position: 20, direction: "vertical"},
+            {word: "NOE", position: 30, direction: "vertical"},
             {word: "IRA", position: 9, direction: "horizontal"},
-            {word: "VANDALOS", position: 11, direction: "horizontal"},
-            {word: "HAMACA", position: 12, direction: "horizontal"},
-            {word: "TETA", position: 13, direction: "horizontal"},
-            {word: "SOL", position: 22, direction: "vertical"},
-            {word: "CIELO", position: 30, direction: "horizontal"},
-            {word: "LUNA", position: 33, direction: "horizontal"},
-            {word: "ESTRELLA", position: 40, direction: "horizontal"},
-            {word: "MAR", position: 50, direction: "vertical"},
-            {word: "AGUA", position: 55, direction: "horizontal"},
-            {word: "RIO", position: 60, direction: "horizontal"},
-            {word: "NUBE", position: 65, direction: "vertical"},
-            {word: "VIENTO", position: 70, direction: "horizontal"},
-            {word: "MONTAÑA", position: 80, direction: "horizontal"},
-            {word: "VALLE", position: 90, direction: "horizontal"},
-            {word: "LAGO", position: 100, direction: "vertical"},
-            {word: "BOSQUE", position: 110, direction: "horizontal"},
-            {word: "FLOR", position: 120, direction: "horizontal"},
-            {word: "ARBOL", position: 130, direction: "horizontal"},
-            {word: "TRONCO", position: 140, direction: "vertical"},
-            {word: "HOJA", position: 150, direction: "horizontal"},
-            {word: "RAIZ", position: 160, direction: "vertical"},
-            {word: "NATURALEZA", position: 170, direction: "horizontal"},
-            {word: "TIERRA", position: 180, direction: "horizontal"},
-            {word: "FUEGO", position: 190, direction: "horizontal"}
+            {word: "VANDALOS", position: 20, direction: "horizontal"},
+            {word: "HAMACA", position: 40, direction: "horizontal"},
+            {word: "TETA", position: 60, direction: "horizontal"},
+            {word: "SOL", position: 80, direction: "vertical"},
+            {word: "CIELO", position: 100, direction: "horizontal"},
+            {word: "LUNA", position: 120, direction: "horizontal"},
+            {word: "ESTRELLA", position: 140, direction: "horizontal"},
+            {word: "MAR", position: 160, direction: "vertical"},
+            {word: "AGUA", position: 180, direction: "horizontal"},
+            {word: "RIO", position: 200, direction: "horizontal"},
+            {word: "NUBE", position: 220, direction: "vertical"},
+            {word: "VIENTO", position: 240, direction: "horizontal"},
+            {word: "MONTAÑA", position: 260, direction: "horizontal"},
+            {word: "VALLE", position: 280, direction: "horizontal"},
+            {word: "LAGO", position: 300, direction: "vertical"},
+            {word: "BOSQUE", position: 320, direction: "horizontal"},
+            {word: "FLOR", position: 340, direction: "horizontal"},
+            {word: "ARBOL", position: 360, direction: "horizontal"},
+            {word: "TRONCO", position: 380, direction: "vertical"},
+            {word: "HOJA", position: 400, direction: "horizontal"},
+            {word: "RAIZ", position: 420, direction: "vertical"},
+            {word: "NATURALEZA", position: 440, direction: "horizontal"},
+            {word: "TIERRA", position: 460, direction: "horizontal"},
+            {word: "FUEGO", position: 480, direction: "horizontal"}
         ];
         
         document.addEventListener("DOMContentLoaded", function() {
