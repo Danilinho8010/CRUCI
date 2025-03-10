@@ -6,8 +6,8 @@
     <title>Crucigrama Diario</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f8f8f8; text-align: center; }
-        .crossword-container { display: flex; justify-content: center; }
-        table.crossword { border-collapse: collapse; margin-right: 40px; position: relative; }
+        .crossword-container { display: flex; justify-content: center; align-items: center; margin-top: 20px; }
+        table.crossword { border-collapse: collapse; margin-right: 40px; }
         table.crossword td { width: 40px; height: 40px; border: 1px solid #000; text-align: center; vertical-align: middle; position: relative; }
         table.crossword td.black { background: #000; }
         table.crossword td input.letter {
@@ -19,96 +19,94 @@
             position: absolute; top: 1px; left: 3px;
             font-size: 0.7em; font-weight: bold; color: #000;
         }
-        table.crossword td.wrong input.letter { color: #d00; }
-        table.crossword td.wrong::after {
-            content: ""; position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; border-top: 2px solid red;
-            transform: rotate(45deg); pointer-events: none;
-        }
-        .clues { max-width: 300px; }
-        .clues h3 { margin: 5px 0; }
-        .clue-list { list-style: none; padding-left: 0; }
-        .clue-list li { margin: 3px 0; }
-        .clue-number { font-weight: bold; margin-right: 5px; }
+        table.crossword td.wrong input.letter { color: red; }
+        .clues-container { display: flex; justify-content: space-around; max-width: 600px; margin: auto; }
+        .clues h3 { margin-bottom: 5px; text-align: left; }
+        .clue-list { list-style: none; padding-left: 0; text-align: left; }
+        .clue-list li { margin-bottom: 5px; cursor: pointer; }
+        .clue-list li:hover { background: #f1f1f1; }
     </style>
 </head>
 <body>
-<h1>Crucigrama Diario</h1>
-<p id="date"></p>
-<div class="crossword-container">
-    <table class="crossword" id="crossword-table"></table>
-    <div class="clues">
-        <h3>Horizontales</h3>
-        <ul class="clue-list" id="horizontal-clues"></ul>
-        <h3>Verticales</h3>
-        <ul class="clue-list" id="vertical-clues"></ul>
+    <h1>Crucigrama Diario</h1>
+    <p id="date"></p>
+    <div class="crossword-container">
+        <table class="crossword" id="crossword-table"></table>
+        <div class="clues-container">
+            <div>
+                <h3>Horizontales</h3>
+                <ul class="clue-list" id="horizontal-clues"></ul>
+            </div>
+            <div>
+                <h3>Verticales</h3>
+                <ul class="clue-list" id="vertical-clues"></ul>
+            </div>
+        </div>
     </div>
-</div>
-<script>
-    function getDailySeed() {
-        let today = new Date();
-        let seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-        return seed;
-    }
-    function generateCrossword() {
-        const gridSize = 15;
-        const crosswordTable = document.getElementById("crossword-table");
-        crosswordTable.innerHTML = "";
-        
-        let words = [
-            {word: "SOL", position: [0, 0], direction: "horizontal", clue: "Estrella que ilumina el día."},
-            {word: "LUNA", position: [2, 3], direction: "vertical", clue: "Satélite natural de la Tierra."},
-            {word: "MAR", position: [5, 5], direction: "horizontal", clue: "Extensión de agua salada."},
-            {word: "RAYO", position: [7, 2], direction: "vertical", clue: "Descarga eléctrica en tormentas."},
-            {word: "NUBE", position: [10, 8], direction: "horizontal", clue: "Agrupación de gotas en el cielo."},
-            {word: "VIENTO", position: [13, 1], direction: "vertical", clue: "Corriente de aire en movimiento."}
-        ];
-        
-        for (let i = 0; i < gridSize; i++) {
-            let row = crosswordTable.insertRow();
-            for (let j = 0; j < gridSize; j++) {
-                let cell = row.insertCell();
-                cell.id = `cell-${i}-${j}`;
-                let input = document.createElement("input");
-                input.type = "text";
-                input.maxLength = 1;
-                input.classList.add("letter");
-                input.dataset.row = i;
-                input.dataset.col = j;
-                cell.appendChild(input);
+    <script>
+        function getDailySeed() {
+            let today = new Date();
+            return today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+        }
+        function generateCrossword() {
+            const gridSize = 15;
+            const crosswordTable = document.getElementById("crossword-table");
+            crosswordTable.innerHTML = "";
+            
+            let words = [
+                {word: "SOL", position: [0, 0], direction: "horizontal", clue: "Estrella que ilumina el día."},
+                {word: "LUNA", position: [2, 3], direction: "vertical", clue: "Satélite natural de la Tierra."},
+                {word: "MAR", position: [5, 5], direction: "horizontal", clue: "Extensión de agua salada."},
+                {word: "RAYO", position: [7, 2], direction: "vertical", clue: "Descarga eléctrica en tormentas."},
+                {word: "NUBE", position: [10, 8], direction: "horizontal", clue: "Agrupación de gotas en el cielo."},
+                {word: "VIENTO", position: [13, 1], direction: "vertical", clue: "Corriente de aire en movimiento."}
+            ];
+            
+            for (let i = 0; i < gridSize; i++) {
+                let row = crosswordTable.insertRow();
+                for (let j = 0; j < gridSize; j++) {
+                    let cell = row.insertCell();
+                    cell.id = `cell-${i}-${j}`;
+                    let input = document.createElement("input");
+                    input.type = "text";
+                    input.maxLength = 1;
+                    input.classList.add("letter");
+                    input.dataset.row = i;
+                    input.dataset.col = j;
+                    cell.appendChild(input);
+                }
             }
+            
+            let horizontalClues = document.getElementById("horizontal-clues");
+            let verticalClues = document.getElementById("vertical-clues");
+            horizontalClues.innerHTML = "";
+            verticalClues.innerHTML = "";
+            
+            words.forEach((word, index) => {
+                let [row, col] = word.position;
+                let clueItem = document.createElement("li");
+                clueItem.innerHTML = `<span class='clue-number'>${index + 1}.</span> ${word.clue}`;
+                
+                if (word.direction === "horizontal") {
+                    horizontalClues.appendChild(clueItem);
+                    for (let i = 0; i < word.word.length; i++) {
+                        let cell = document.getElementById(`cell-${row}-${col + i}`);
+                        if (cell) cell.classList.add("highlight");
+                    }
+                } else {
+                    verticalClues.appendChild(clueItem);
+                    for (let i = 0; i < word.word.length; i++) {
+                        let cell = document.getElementById(`cell-${row + i}-${col}`);
+                        if (cell) cell.classList.add("highlight");
+                    }
+                }
+            });
         }
         
-        let horizontalClues = document.getElementById("horizontal-clues");
-        let verticalClues = document.getElementById("vertical-clues");
-        horizontalClues.innerHTML = "";
-        verticalClues.innerHTML = "";
-        
-        words.forEach((word, index) => {
-            let [row, col] = word.position;
-            let clueItem = document.createElement("li");
-            clueItem.innerHTML = `<span class='clue-number'>${index + 1}.</span> ${word.clue}`;
-            
-            if (word.direction === "horizontal") {
-                horizontalClues.appendChild(clueItem);
-                for (let i = 0; i < word.word.length; i++) {
-                    let cell = document.getElementById(`cell-${row}-${col + i}`);
-                    if (cell) cell.classList.add("highlight");
-                }
-            } else {
-                verticalClues.appendChild(clueItem);
-                for (let i = 0; i < word.word.length; i++) {
-                    let cell = document.getElementById(`cell-${row + i}-${col}`);
-                    if (cell) cell.classList.add("highlight");
-                }
-            }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("date").textContent = `Crucigrama del día: ${new Date().toLocaleDateString()}`;
+            generateCrossword();
         });
-    }
-    
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("date").textContent = `Crucigrama del día: ${new Date().toLocaleDateString()}`;
-        generateCrossword();
-    });
-</script>
+    </script>
 </body>
 </html>
