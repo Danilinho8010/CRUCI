@@ -56,84 +56,29 @@
             {word: "IRA", position: 9, direction: "horizontal"},
             {word: "VANDALOS", position: 11, direction: "horizontal"},
             {word: "HAMACA", position: 12, direction: "horizontal"},
-            {word: "TETA", position: 13, direction: "horizontal"}
+            {word: "TETA", position: 13, direction: "horizontal"},
+            {word: "SOL", position: 22, direction: "vertical"},
+            {word: "CIELO", position: 30, direction: "horizontal"},
+            {word: "LUNA", position: 33, direction: "horizontal"},
+            {word: "ESTRELLA", position: 40, direction: "horizontal"},
+            {word: "MAR", position: 50, direction: "vertical"},
+            {word: "AGUA", position: 55, direction: "horizontal"},
+            {word: "RIO", position: 60, direction: "horizontal"},
+            {word: "NUBE", position: 65, direction: "vertical"},
+            {word: "VIENTO", position: 70, direction: "horizontal"},
+            {word: "MONTAÑA", position: 80, direction: "horizontal"},
+            {word: "VALLE", position: 90, direction: "horizontal"},
+            {word: "LAGO", position: 100, direction: "vertical"},
+            {word: "BOSQUE", position: 110, direction: "horizontal"},
+            {word: "FLOR", position: 120, direction: "horizontal"},
+            {word: "ARBOL", position: 130, direction: "horizontal"},
+            {word: "TRONCO", position: 140, direction: "vertical"},
+            {word: "HOJA", position: 150, direction: "horizontal"},
+            {word: "RAIZ", position: 160, direction: "vertical"},
+            {word: "NATURALEZA", position: 170, direction: "horizontal"},
+            {word: "TIERRA", position: 180, direction: "horizontal"},
+            {word: "FUEGO", position: 190, direction: "horizontal"}
         ];
-        
-        function generateCrossword() {
-            const grid = document.getElementById('crucigrama');
-            grid.innerHTML = '';
-            let cells = [];
-            for (let i = 0; i < 100; i++) {
-                let cell = document.createElement('input');
-                cell.classList.add('cell');
-                cell.maxLength = 1;
-                cell.dataset.index = i;
-                cell.addEventListener('input', function() {
-                    this.value = this.value.toUpperCase();
-                    checkWord(this);
-                    moveToNextCell(this);
-                });
-                cell.addEventListener('focus', function() {
-                    highlightWord(this);
-                });
-                grid.appendChild(cell);
-                cells.push(cell);
-            }
-            placeWords(cells);
-        }
-        
-        function placeWords(cells) {
-            words.forEach(wordObj => {
-                let pos = wordObj.position;
-                for (let i = 0; i < wordObj.word.length; i++) {
-                    cells[pos].dataset.letter = wordObj.word[i];
-                    if (wordObj.direction === "horizontal") pos++;
-                    else pos += 10;
-                }
-            });
-        }
-        
-        function checkWord(cell) {
-            if (cell.dataset.letter && cell.value !== cell.dataset.letter) {
-                cell.classList.add('incorrect');
-            } else {
-                cell.classList.remove('incorrect');
-            }
-            checkCompletion();
-        }
-        
-        function moveToNextCell(cell) {
-            let currentIndex = parseInt(cell.dataset.index);
-            let nextCell = document.querySelector(`[data-index='${currentIndex + 1}']`);
-            if (nextCell) nextCell.focus();
-        }
-        
-        function checkCompletion() {
-            let allCorrect = [...document.querySelectorAll('.cell')].every(cell => 
-                (!cell.dataset.letter || cell.value === cell.dataset.letter)
-            );
-            if (allCorrect) {
-                stopTimer();
-                alert(`¡Felicidades! Completaste el crucigrama en ${document.getElementById('timer').textContent}`);
-            }
-        }
-        
-        function highlightWord(cell) {
-            document.querySelectorAll('.cell').forEach(c => c.classList.remove('highlight'));
-            let index = parseInt(cell.dataset.index);
-            words.forEach(wordObj => {
-                let pos = wordObj.position;
-                for (let i = 0; i < wordObj.word.length; i++) {
-                    if (pos === index) {
-                        for (let j = 0; j < wordObj.word.length; j++) {
-                            document.querySelector(`[data-index='${wordObj.position + (wordObj.direction === 'horizontal' ? j : j * 10)}']`).classList.add('highlight');
-                        }
-                    }
-                    if (wordObj.direction === "horizontal") pos++;
-                    else pos += 10;
-                }
-            });
-        }
         
         document.addEventListener("DOMContentLoaded", function() {
             generateCrossword();
