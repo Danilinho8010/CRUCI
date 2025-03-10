@@ -53,6 +53,8 @@
             const crosswordTable = document.getElementById("crossword-table");
             crosswordTable.innerHTML = "";
             
+            let grid = Array(gridSize).fill(null).map(() => Array(gridSize).fill(""));
+            
             let words = [
                 {word: "SOL", position: [0, 0], direction: "horizontal", clue: "Estrella que ilumina el día."},
                 {word: "LUNA", position: [2, 3], direction: "vertical", clue: "Satélite natural de la Tierra."},
@@ -62,18 +64,31 @@
                 {word: "VIENTO", position: [13, 1], direction: "vertical", clue: "Corriente de aire en movimiento."}
             ];
             
+            words.forEach((word, index) => {
+                let [row, col] = word.position;
+                for (let i = 0; i < word.word.length; i++) {
+                    grid[row][col] = word.word[i];
+                    if (word.direction === "horizontal") col++;
+                    else row++;
+                }
+            });
+            
             for (let i = 0; i < gridSize; i++) {
                 let row = crosswordTable.insertRow();
                 for (let j = 0; j < gridSize; j++) {
                     let cell = row.insertCell();
                     cell.id = `cell-${i}-${j}`;
-                    let input = document.createElement("input");
-                    input.type = "text";
-                    input.maxLength = 1;
-                    input.classList.add("letter");
-                    input.dataset.row = i;
-                    input.dataset.col = j;
-                    cell.appendChild(input);
+                    
+                    if (grid[i][j] !== "") {
+                        let input = document.createElement("input");
+                        input.type = "text";
+                        input.maxLength = 1;
+                        input.classList.add("letter");
+                        input.dataset.correct = grid[i][j];
+                        cell.appendChild(input);
+                    } else {
+                        cell.classList.add("black");
+                    }
                 }
             }
             
@@ -83,22 +98,13 @@
             verticalClues.innerHTML = "";
             
             words.forEach((word, index) => {
-                let [row, col] = word.position;
                 let clueItem = document.createElement("li");
                 clueItem.innerHTML = `<span class='clue-number'>${index + 1}.</span> ${word.clue}`;
                 
                 if (word.direction === "horizontal") {
                     horizontalClues.appendChild(clueItem);
-                    for (let i = 0; i < word.word.length; i++) {
-                        let cell = document.getElementById(`cell-${row}-${col + i}`);
-                        if (cell) cell.classList.add("highlight");
-                    }
                 } else {
                     verticalClues.appendChild(clueItem);
-                    for (let i = 0; i < word.word.length; i++) {
-                        let cell = document.getElementById(`cell-${row + i}-${col}`);
-                        if (cell) cell.classList.add("highlight");
-                    }
                 }
             });
         }
@@ -109,4 +115,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
